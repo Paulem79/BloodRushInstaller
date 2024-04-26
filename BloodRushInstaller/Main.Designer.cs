@@ -67,9 +67,9 @@
             this.labelSteamPath.AutoSize = true;
             this.labelSteamPath.Location = new System.Drawing.Point(12, 31);
             this.labelSteamPath.Name = "labelSteamPath";
-            this.labelSteamPath.Size = new System.Drawing.Size(298, 13);
+            this.labelSteamPath.Size = new System.Drawing.Size(274, 13);
             this.labelSteamPath.TabIndex = 3;
-            this.labelSteamPath.Text = "Chemin vers le répertoire de la démo (si besoin d\'être différent)";
+            this.labelSteamPath.Text = "Chemin vers le répertoire steam (si besoin d\'être différent)";
             // 
             // labelGameVersion
             // 
