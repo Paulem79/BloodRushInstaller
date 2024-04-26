@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BloodRushInstaller.utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,8 +12,9 @@ namespace BloodRushInstaller
     public partial class Main : Form
     {
         public static string zipVersion = null;
+        public static string steamDemoFolderPath;
 
-        public static List<string> versions = new List<string>();
+        public static List<GameLocation> versions = new List<GameLocation>();
 
         public Main()
         {
@@ -24,8 +26,45 @@ namespace BloodRushInstaller
                 else new DownloadPopup(PopupActionType.Extract).ShowDialog();
             }
             InitializeComponent();
-            versions = GetGameVersions();
-            comboBox1.DataSource = versions.ToArray();
+            versions = GetLocalGameVersions();
+
+            steamDemoFolderPath = GetSteamDemo();
+            if(steamDemoFolderPath != null)
+            {
+                versions.Add(new GameLocation(steamDemoFolderPath, "Demo"));
+            }
+
+            comboBox1.DataSource = versions.ConvertAll(version => version.version).ToArray();
+        }
+
+        private string GetSteamDemo()
+        {
+            string directory;
+            if (steamPath.Text == "")
+            {
+                directory = ProgramFilesx86() + @"\Steam\steamapps\common\Blood Rush Demo";
+            } else
+            {
+                directory = steamPath.Text;
+            }
+
+            if (!Directory.Exists(directory))
+            {
+                return null;
+            }
+
+            return directory;
+        }
+
+        static string ProgramFilesx86()
+        {
+            if (8 == IntPtr.Size
+                || (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
+            {
+                return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+            }
+
+            return Environment.GetEnvironmentVariable("ProgramFiles");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,8 +72,11 @@ namespace BloodRushInstaller
             ProcessStartInfo pro = new ProcessStartInfo
             {
                 WindowStyle = ProcessWindowStyle.Normal,
-                FileName = AppDomain.CurrentDomain.BaseDirectory + @"files/BloodRush" + zipVersion + "/" + versions.Find(v => v == comboBox1.SelectedValue.ToString()) + "/Hellscape.exe"
+                FileName = versions.Find(v => {
+                    return v.version == comboBox1.SelectedValue.ToString();
+                }).path + "/Hellscape.exe"
             };
+            Console.WriteLine("Lancement de " + pro.FileName);
             Process.Start(pro);
         }
 
@@ -97,9 +139,9 @@ namespace BloodRushInstaller
             return false;
         }
 
-        public List<string> GetGameVersions()
+        public List<GameLocation> GetLocalGameVersions()
         {
-            List<string> gamesVersions = new List<string>();
+            List<GameLocation> gamesVersions = new List<GameLocation>();
 
             string[] folders = Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"files/BloodRush" + zipVersion, "BloodRush*");
 
@@ -107,7 +149,7 @@ namespace BloodRushInstaller
             {
                 string folderVersion = FindGameVersion(folder);
                 if (folderVersion != null)
-                    gamesVersions.Add(folderVersion);
+                    gamesVersions.Add(new GameLocation(folder, folderVersion));
             }
 
             return gamesVersions;

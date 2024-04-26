@@ -10,7 +10,7 @@
         /// <summary>
         /// Nettoyage des ressources utilisées.
         /// </summary>
-        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+        /// <param version="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -30,6 +30,7 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.steamPath = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -50,16 +51,25 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 1;
             // 
-            // Form1
+            // steamPath
+            // 
+            this.steamPath.Location = new System.Drawing.Point(220, 32);
+            this.steamPath.Name = "steamPath";
+            this.steamPath.Size = new System.Drawing.Size(293, 20);
+            this.steamPath.TabIndex = 2;
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.steamPath);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "BloodRush Installer";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -67,6 +77,7 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox steamPath;
     }
 }
 
