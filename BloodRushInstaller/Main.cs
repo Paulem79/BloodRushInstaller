@@ -164,5 +164,14 @@ namespace BloodRushInstaller
 
             return n;
         }
+
+        private void browseFolderSteam_Click(object sender, EventArgs e)
+        {
+            if(steamBrowseDialog.ShowDialog() == DialogResult.OK)
+            {
+                steamPath.Text = steamBrowseDialog.SelectedPath;
+                steamDemoFolderPath = GetSteamDemo();
+            }
+        }
     }
 }
