@@ -1,4 +1,6 @@
-﻿namespace BloodRushInstaller
+﻿using System.Windows.Forms;
+
+namespace BloodRushInstaller
 {
     partial class Main
     {
@@ -57,7 +59,7 @@
             // 
             // steamPath
             // 
-            this.steamPath.Location = new System.Drawing.Point(292, 28);
+            this.steamPath.Location = new System.Drawing.Point(322, 29);
             this.steamPath.Name = "steamPath";
             this.steamPath.Size = new System.Drawing.Size(293, 20);
             this.steamPath.TabIndex = 2;
@@ -65,9 +67,10 @@
             // labelSteamPath
             // 
             this.labelSteamPath.AutoSize = true;
-            this.labelSteamPath.Location = new System.Drawing.Point(12, 31);
+            this.labelSteamPath.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSteamPath.Location = new System.Drawing.Point(12, 32);
             this.labelSteamPath.Name = "labelSteamPath";
-            this.labelSteamPath.Size = new System.Drawing.Size(274, 13);
+            this.labelSteamPath.Size = new System.Drawing.Size(304, 13);
             this.labelSteamPath.TabIndex = 3;
             this.labelSteamPath.Text = "Chemin vers le répertoire steam (si besoin d\'être différent)";
             // 
@@ -82,9 +85,11 @@
             // 
             // browseFolderSteam
             // 
-            this.browseFolderSteam.Location = new System.Drawing.Point(579, 28);
+            this.browseFolderSteam.FlatAppearance.BorderSize = 0;
+            this.browseFolderSteam.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.browseFolderSteam.Location = new System.Drawing.Point(610, 29);
             this.browseFolderSteam.Name = "browseFolderSteam";
-            this.browseFolderSteam.Size = new System.Drawing.Size(76, 21);
+            this.browseFolderSteam.Size = new System.Drawing.Size(75, 20);
             this.browseFolderSteam.TabIndex = 5;
             this.browseFolderSteam.Text = "Parcourir...";
             this.browseFolderSteam.UseVisualStyleBackColor = true;
